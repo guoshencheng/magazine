@@ -1,0 +1,7 @@
+@import "../common.scss";
+
+#navbar_container {
+  width: 100%;
+  height: 80px;
+  @include shadow;
+}

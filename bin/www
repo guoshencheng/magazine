@@ -3,7 +3,6 @@
 //全局
 
 global.env = process.env;
-const __DEBUG__ = process.env.NODE_ENV != 'production' && process.env.NODE_ENV != 'product'
 /**
  * Module dependencies.
  */
@@ -12,14 +11,12 @@ var app = require('../app');
 var debug = require('debug')('quickExpress:server');
 var http = require('http');
 
-var gulpfile = require('../gulpfile');
 
 /**
  * Get port from environment and store in Express.
  */
 
-var config = require('../config').create(__DEBUG__)
-var port = normalizePort(process.env.PORT || config.backserver.port);
+var port = normalizePort(process.env.PORT || 3000);
 app.set('port', port);
 
 /**

@@ -13,25 +13,11 @@ module.exports = {
   externals:{
     react:'React',
     'react-dom':'ReactDOM',
-    pixi:'PIXI',
-    PIXI:'PIXI',
   },
   entry: {
     index: [
       'webpack-hot-middleware/client',
-      path.resolve(__dirname, './public/js/main/main.jsx')
-    ],
-    edit: [
-      'webpack-hot-middleware/client',
-      path.resolve(__dirname, './public/js/edit/edit.jsx'),
-    ],
-    game_create: [
-      'webpack-hot-middleware/client',
-      path.resolve(__dirname, './public/js/game/create/index.jsx'),
-    ],
-    game_my: [
-      'webpack-hot-middleware/client',
-      path.resolve(__dirname, './public/js/game/my/index.jsx'),
+      path.resolve(__dirname, './public/apps/create/index.jsx')
     ]
   },
   output: {

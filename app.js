@@ -1,19 +1,13 @@
 var express = require('express');
-var session = require('express-session');
 var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var favicon = require('serve-favicon');
 
-var routes = require('./routes/index');
-var db_routes = require('./routes/db')
+var routes = require('./routes');
 
 var app = express();
-var config = require('./config')
-var custom = require('./services/middleware').custom
-require('mp_common').create({key: config.common.encode})
-var auth = require('./services/middleware').auth()
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -43,25 +37,8 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: true
-}));
 
-app.use(function (req,res,next) {
-  if(process.env.NODE_ENV !== 'product'){
-    req.session.userFlag = 'admin';
-  }
-
-  //@TODO 测试用
-  req.session.userFlag = 'admin';
-
-  next();
-});
-app.use(custom)
-app.use('/', [auth, routes]);
-app.use('/db', db_routes)
+app.use('/', routes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
