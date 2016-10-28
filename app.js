@@ -6,6 +6,7 @@ var bodyParser = require('body-parser');
 var favicon = require('serve-favicon');
 
 var routes = require('./routes');
+console.log(routes)
 
 var app = express();
 
