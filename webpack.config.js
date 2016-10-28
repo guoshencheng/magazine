@@ -1,6 +1,20 @@
 var path = require('path');
+var fs = require('fs')
 var webpack = require('webpack');
 var webpackDevPort = 7301;
+
+var dirPre = './public/apps/'
+var apps = fs.readdirSync(dirPre)
+var entry = {}
+apps.filter(function(child) {
+  var dir =  dirPre + child
+  return fs.lstatSync(dir).isDirectory()
+}).forEach(function(child) {
+  entry[child] = [
+    'webpack-hot-middleware/client',
+    path.resolve(__dirname, dirPre + child + '/index.jsx')
+  ]
+})
 
 module.exports = {
   webpackDevPort: webpackDevPort,
@@ -11,12 +25,7 @@ module.exports = {
     react:'React',
     'react-dom':'ReactDOM',
   },
-  entry: {
-    create: [
-      'webpack-hot-middleware/client',
-      path.resolve(__dirname, './public/apps/create/index.jsx')
-    ]
-  },
+  entry: entry,
   output: {
     path: path.resolve(__dirname, './public/dist/'),
     publicPath: '/dist/',

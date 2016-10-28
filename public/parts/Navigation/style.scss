@@ -1,7 +1,30 @@
 @import "../common.scss";
 
-#navbar_container {
+#navigation_container {
   width: 100%;
-  height: 80px;
+  height: 60px;
   @include shadow;
+  a {
+    width: 100%;
+    height: 100%;
+    @include flex;
+    @include flex-direction(row);
+    @include align-items(center);
+    text-decoration: none;
+    decoration: none;
+  }
+  a:visited {
+    text-decoration: none;
+    decoration: none;
+  }
+  .ry_navigation_logo {
+    margin-left: 5%;
+    height: 80%;
+  }
+  .ry_navigation_title {
+    margin-left: 20px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #3e3e3e;
+  }
 }

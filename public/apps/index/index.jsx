@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import autoBind from 'react-autobind'
 
 import Navigation from '../../parts/Navigation/index.jsx'
+import Control from '../../parts/Control/index.jsx'
 
 require('./style.scss')
 
@@ -16,6 +17,7 @@ class Create extends React.Component {
     return (
       <div>
         <Navigation />
+        <Control />
       </div>
     )
   }

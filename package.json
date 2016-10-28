@@ -42,6 +42,7 @@
     "gulp-eslint": "^2.0.0",
     "gulp-util": "^3.0.7",
     "node-sass": "^3.10.1",
+    "react-list": "^0.8.0",
     "react-transform-hmr": "^1.0.1",
     "sass-loader": "^3.1.2",
     "scss-loader": "0.0.1",
