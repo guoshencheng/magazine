@@ -30,6 +30,10 @@ class Create extends React.Component {
       <div>
         <Navigation />
         <Control />
+        <div className="cover_container">
+          <p>封面</p>
+          <Page />
+        </div>
         <ReactList itemRenderer={this.renderItem} length={50} type='uniform' />
       </div>
     )

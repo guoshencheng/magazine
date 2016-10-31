@@ -24,6 +24,7 @@ const present_size = 11
 var drawImage = (ctx, opt) => {
   let img = new Image()
   img.onload = () => {
+
     ctx.drawImage(img, opt.left * 2, opt.top * 2, opt.width * 2, opt.height * 2)
   }
   img.src = opt.url
@@ -45,13 +46,6 @@ var drawText = (ctx, opt) => {
 }
 
 module.exports = (ctx, option) => {
-  drawImage(ctx, {
-    left: cover_left,
-    top: cover_top,
-    width: cover_width,
-    height: cover_height,
-    url: option.cover
-  })
   drawText(ctx, {
     size: title_size,
     text: option.title,
@@ -60,7 +54,6 @@ module.exports = (ctx, option) => {
     y: title_y,
     align: title_align
   })
-
   drawText(ctx, {
     size: desc_size,
     text: option.desc,
@@ -69,7 +62,6 @@ module.exports = (ctx, option) => {
     y: desc_y,
     align: desc_align
   })
-
   drawText(ctx, {
     size: present_size,
     text: option.presents,
@@ -78,5 +70,12 @@ module.exports = (ctx, option) => {
     y: present_y,
     align: present_align,
     style: "oblique"
+  })
+  drawImage(ctx, {
+    left: cover_left,
+    top: cover_top,
+    width: cover_width,
+    height: cover_height,
+    url: option.cover
   })
 }

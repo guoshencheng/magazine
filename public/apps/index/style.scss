@@ -1,11 +1,6 @@
 
 @import "../../parts/common.scss";
 
-@font-face {
-  font-family: 'pingfang-light';
-  src: local('PingFang SC');
-}
-
 // Kozuka Mincho Pr6N
 
 body {
@@ -17,8 +12,11 @@ body {
     @include flex;
     @include justify-content(center);
   }
-  .blank_area {
-    height: 50px;
-    width: 100%;
+  .cover_container {
+    color: #646464;
+    margin-top: 50px;
+    @include flex;
+    @include flex-direction(column);
+    @include align-items(center);
   }
 }

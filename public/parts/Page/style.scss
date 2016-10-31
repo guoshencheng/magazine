@@ -5,6 +5,7 @@
   height: 568px;
   margin: 5px;
   background: #dedede;
+  @include shadow;
   canvas {
     width: 100%;
     height: 100%;

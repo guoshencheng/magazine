@@ -15,7 +15,10 @@ class Page extends React.Component {
   }
 
   updateCanvas() {
-    var context = this.refs.canvas.getContext('2d')
+    var canvas = this.refs.canvas
+    var context = canvas.getContext('2d')
+    context.fillStyle = 'white'
+    context.fillRect(0, 0, canvas.width, canvas.height)
     var templates = require('../../templates')
     templates.cover(context, {
       cover: '/images/logo.png',
@@ -23,17 +26,6 @@ class Page extends React.Component {
       desc: "方正兰亭纤黑",
       presents: "renyan presents"
     })
-    // var image = new Image()
-    // image.src = '/images/logo.png'
-    // image.onload = function() {
-    //   context.drawImage(image, 0, 0)
-    // }
-    //
-    // context.font = "40px PingFangSC-Ultralight, sans-serif"
-    // context.fillText("hello world", 10, 350)
-    // context.font = "20px PingFangSC-Ultralight, sans-serif"
-    // context.fillText("这是一行字哦，一行字哦", 10, 450)
-    // image.src = this.props.content.image
   }
 
   render() {
