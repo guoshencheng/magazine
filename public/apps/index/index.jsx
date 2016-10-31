@@ -7,6 +7,8 @@ import Page from '../../parts/Page/index.jsx'
 import Navigation from '../../parts/Navigation/index.jsx'
 import Control from '../../parts/Control/index.jsx'
 
+import {contents} from '../../../logic/stores'
+
 import axios from 'axios'
 
 require('./style.scss')
@@ -15,7 +17,6 @@ class Create extends React.Component {
   constructor(props){
      super(props);
      autoBind(this);
-     console.log(env)
   }
 
   renderItem() {
@@ -27,18 +28,10 @@ class Create extends React.Component {
     )
   }
 
+  
+
   make() {
-    axios.get('http://operation.renyan.cn/rest/noauth/card/select_by_album_id', {
-      params: {
-        aid: 1,
-        currentPage: 1,
-        pageSize: 10
-      }
-    }).then(value => {
-      console.log(value.data)
-    }).catch(reason => {
-      console.log(reason.response)
-    })
+    contents.dispatch({type: 0, data: 1})
   }
 
   render() {
