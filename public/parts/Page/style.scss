@@ -1,0 +1,12 @@
+@import "../common.scss";
+
+.ry_page_item {
+  width: 400px;
+  height: 568px;
+  margin: 5px;
+  background: #dedede;
+  canvas {
+    width: 100%;
+    height: 100%;
+  }
+}

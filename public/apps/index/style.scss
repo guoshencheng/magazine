@@ -1,4 +1,24 @@
+
+@import "../../parts/common.scss";
+
+@font-face {
+  font-family: 'pingfang-light';
+  src: local('PingFang SC');
+}
+
+// Kozuka Mincho Pr6N
+
 body {
   font-family: helvetica-light;
   margin: 0;
+  .pages_row {
+    margin-top: 50px;
+    width: 100%;
+    @include flex;
+    @include justify-content(center);
+  }
+  .blank_area {
+    height: 50px;
+    width: 100%;
+  }
 }
