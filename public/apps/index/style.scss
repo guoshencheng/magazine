@@ -10,10 +10,12 @@ body {
     margin-top: 50px;
     width: 100%;
     @include flex;
+    @include flex-wrap(wrap);
     @include justify-content(center);
   }
-  .cover_container {
+  .common_container {
     color: #646464;
+    font-size: 20px;
     margin-top: 50px;
     @include flex;
     @include flex-direction(column);

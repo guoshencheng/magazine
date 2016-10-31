@@ -10,11 +10,12 @@ class Control extends React.Component {
      autoBind(this);
      console.log(env)
   }
+
   render() {
     return (
       <div id="ry_control">
-        <input className="ry_control_input" placeholder="请输入uid" type="text"></input>
-        <div className="ry_control_btn">制作</div>
+        <input className="ry_control_input" placeholder="请输入言集id" type="text"></input>
+        <div className="ry_control_btn" onClick={this.props.make}>制作</div>
       </div>
     )
   }

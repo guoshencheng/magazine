@@ -18,7 +18,7 @@ const desc_size = 13
 const present_y = 569.5
 const present_x = 403.5
 const present_align = "right"
-const present_font = "helvetica-light"
+const present_font = "helvetica-lightOblique"
 const present_size = 11
 
 import draw from '../lib/draw'
@@ -47,7 +47,6 @@ module.exports = (ctx, option) => {
     x: present_x,
     y: present_y,
     align: present_align,
-    style: "oblique"
   })
   draw.image(ctx, {
     left: cover_left,
