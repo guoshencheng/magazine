@@ -21,32 +21,10 @@ const present_align = "right"
 const present_font = "helvetica-light"
 const present_size = 11
 
-var drawImage = (ctx, opt) => {
-  let img = new Image()
-  img.onload = () => {
-
-    ctx.drawImage(img, opt.left * 2, opt.top * 2, opt.width * 2, opt.height * 2)
-  }
-  img.src = opt.url
-}
-
-var drawText = (ctx, opt) => {
-  opt.style = opt.style || ''
-  opt.size = opt.size || "16px";
-  opt.text = opt.text || ""
-  opt.font = opt.font || 'PingFangSC-Ultralight, sans-serif'
-  opt.x = opt.x || 0
-  opt.y = opt.y || 0
-  opt.align = opt.align || 'left'
-  ctx.font = opt.style + ' ' + opt.size * 2 + "px " + opt.font
-  ctx.textAlign = opt.align
-  ctx.textBaseline = 'top'
-  ctx.fillStyle = "#656464"
-  ctx.fillText(opt.text, opt.x * 2, opt.y * 2)
-}
+import draw from '../lib/draw'
 
 module.exports = (ctx, option) => {
-  drawText(ctx, {
+  draw.text(ctx, {
     size: title_size,
     text: option.title,
     font: title_font,
@@ -54,7 +32,7 @@ module.exports = (ctx, option) => {
     y: title_y,
     align: title_align
   })
-  drawText(ctx, {
+  draw.text(ctx, {
     size: desc_size,
     text: option.desc,
     font: desc_font,
@@ -62,7 +40,7 @@ module.exports = (ctx, option) => {
     y: desc_y,
     align: desc_align
   })
-  drawText(ctx, {
+  draw.text(ctx, {
     size: present_size,
     text: option.presents,
     font: present_font,
@@ -71,7 +49,7 @@ module.exports = (ctx, option) => {
     align: present_align,
     style: "oblique"
   })
-  drawImage(ctx, {
+  draw.image(ctx, {
     left: cover_left,
     top: cover_top,
     width: cover_width,
