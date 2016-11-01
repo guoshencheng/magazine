@@ -1,7 +1,11 @@
 
+import utils from './utils'
+
+const scale = 2
+
 var fit = (origin, image) => {
   var height = origin.width / image.width * image.height
-  var y = height > origin.height ? origin.top - (height - origin.height) : origin.top + (origin.height - height) / 2
+  var y = height > origin.height ? origin.top - (height - origin.height) : origin.top + (origin.height - height) / utils.scale
   return {
     width: origin.width,
     height: height,
@@ -18,12 +22,12 @@ var drawImage = (ctx, opt) => {
   let img = new Image()
   img.onload = () => {
     var rect = changeRect(opt, img)
-    ctx.drawImage(img, rect.x * 2, rect.y * 2, rect.width * 2, rect.height * 2)
+    ctx.drawImage(img, rect.x * utils.scale, rect.y * utils.scale, rect.width * utils.scale, rect.height * utils.scale)
   }
   img.src = opt.url
 }
 
-var drawText = (ctx, opt) => {
+var checkTextOpt = (opt) => {
   opt.style = opt.style || ''
   opt.size = opt.size || "16px";
   opt.text = opt.text || ""
@@ -31,14 +35,54 @@ var drawText = (ctx, opt) => {
   opt.x = opt.x || 0
   opt.y = opt.y || 0
   opt.align = opt.align || 'left'
-  ctx.font = opt.style + ' ' + opt.size * 2 + "px " + opt.font
+  opt.width = opt.width || 0
+  opt.linespace = opt.linespace || 17
+}
+
+var drawCustomText = (ctx, opt) => {
+  if (opt.align == 'left') {
+    for (var i = 0; i < opt.text.length; i++) {
+      var word = opt.text[i]
+      var x = opt.x + i * opt.wordspace
+      var option = Object.assign({}, opt, {x: x, wordspace: null, text: word})
+      drawText(ctx, option)
+    }
+  } else {
+    for (var i = 0; i < opt.text.length; i++) {
+      var word = opt.text[i]
+      var x = opt.x - i * opt.wordspace
+      var option = Object.assign({}, opt, {x: x, wordspace: null, text: word})
+      drawText(ctx, option)
+    }
+  }
+}
+
+var drawText = (ctx, opt) => {
+  checkTextOpt(opt)
+  ctx.font = opt.style + ' ' + opt.size * utils.scale + "px " + opt.font
   ctx.textAlign = opt.align
   ctx.textBaseline = 'top'
   ctx.fillStyle = "#656464"
-  ctx.fillText(opt.text, opt.x * 2, opt.y * 2)
+  ctx.fillText(opt.text, opt.x * utils.scale, opt.y * utils.scale)
+}
+
+
+var drawTexts = (ctx, opt) => {
+  checkTextOpt(opt)
+  ctx.font = opt.style + ' ' + opt.size * utils.scale + "px " + opt.font
+  var words = utils.separateWord(ctx, opt.text, opt.width * utils.scale, {wordspace: utils.scale * opt.wordspace,
+    size: utils.scale * opt.size,
+    linespace: utils.scale * opt.linespace,
+    x: utils.scale * opt.x,
+    y: utils.scale * opt.y})
+  words.forEach((word, index) => {
+    var option = Object.assign({}, opt, word, {wordspace: null})
+    drawText(ctx, option)
+  })
 }
 
 module.exports = {
   image: drawImage,
-  text: drawText
+  text: drawText,
+  texts: drawTexts
 }

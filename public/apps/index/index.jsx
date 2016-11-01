@@ -17,9 +17,18 @@ class Create extends React.Component {
   constructor(props){
      super(props);
      autoBind(this);
+     contents.subscribe(() => {
+       console.log(contents.getState())
+     })
   }
 
-  renderItem() {
+  renderItem(index, key) {
+    var type
+    var data
+    if (index == 0) {
+      type = 0
+      data = {}
+    }
     return (
       <div className="pages_row">
         <Page />
@@ -27,8 +36,6 @@ class Create extends React.Component {
       </div>
     )
   }
-
-  
 
   make() {
     contents.dispatch({type: 0, data: 1})

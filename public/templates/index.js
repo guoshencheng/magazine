@@ -1,3 +1,4 @@
 module.exports = {
-  cover: require('./cover')
+  cover: require('./cover'),
+  preface: require('./preface')
 }

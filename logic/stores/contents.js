@@ -33,10 +33,10 @@ var reducer = (state, action) => {
       fetchContentByAid(action.data)
       break;
     case types.FETCH_BY_AID_SUCCESS:
-      console.log(action.data)
+      return action.data
       break;
     case types.FETCH_BY_AID_FAILD:
-      console.log(action.data)
+      return action.data
       break;
     default:
       console.log(1)
