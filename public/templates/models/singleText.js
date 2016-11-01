@@ -12,8 +12,15 @@
 import utils from '../../lib/utils'
 
 module.exports = {
-
-  top: 34,
-  width: utils.pageWidth - 34 * 2,
-  height: utils.pageHeight - 34 * 2
+  texts: {
+    x: 95,
+    y: 297.5,
+    width: 180,
+    size: 8,
+    font: 'FZLanTingHei-EL-GBK',
+    align: 'left',
+    mode: 'center',
+    linespace: 13,
+    wordspace: 10
+  }
 }

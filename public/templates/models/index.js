@@ -1,3 +1,4 @@
 module.exports = {
-  bigSingleImage: require('./bigSingleImage')
+  bigSingleImage: require('./bigSingleImage'),
+  singleText: require('./singleText')
 }

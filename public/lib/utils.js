@@ -1,6 +1,7 @@
 const scale = 3
 const pageHeight = 595
 const pageWidth = 419
+
 var getLines = (ctx, text, maxWidth, opt) => {
   if (opt.wordspace) {
     return caculateLines(text, maxWidth, opt)

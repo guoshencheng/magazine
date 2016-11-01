@@ -5,7 +5,7 @@ const scale = 2
 
 var fit = (origin, image) => {
   var height = origin.width / image.width * image.height
-  var y = height > origin.height ? origin.top - (height - origin.height) : origin.top + (origin.height - height) / utils.scale
+  var y = height > origin.height ? origin.top - (height - origin.height) : origin.top + (origin.height - height) / 2
   return {
     width: origin.width,
     height: height,

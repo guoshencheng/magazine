@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import autoBind from 'react-autobind'
 import utils from '../../lib/utils'
 import templates from '../../templates'
+import models from '../../templates/models'
 
 require('./style.scss')
 const a = '我，普普通通80后妈妈，每天忙碌的工作之余最喜欢的就是逛逛菜市场，你可以说我没有品位，可这才是最真实的我。我一直希望自己能游遍天下，欣赏不同的风俗，'
@@ -49,6 +50,18 @@ class Page extends React.Component {
     }
   }
 
+  renderContent(context) {
+    if (this.props.side == 1) {
+      templates.content(models.singleText)(context, {
+        texts: a
+      })
+    } else {
+      templates.content(models.bigSingleImage)(context, {
+        image: '/images/logo.png'
+      })
+    }
+  }
+
   updateCanvas() {
     var canvas = this.refs.canvas
     var context = canvas.getContext('2d')
@@ -60,7 +73,7 @@ class Page extends React.Component {
     } else if (this.props.type == 'preface') {
       this.renderPreface(context)
     } else {
-      this.renderPreface(context)
+      this.renderContent(context)
     }
   }
 

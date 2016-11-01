@@ -8,8 +8,10 @@
 import utils from '../../lib/utils'
 
 module.exports = {
-  left: 34,
-  top: 34,
-  width: utils.pageWidth - 34 * 2,
-  height: utils.pageHeight - 34 * 2
+  image: {
+    left: 34,
+    top: 34,
+    width: utils.pageWidth - 34 * 2,
+    height: utils.pageHeight - 34 * 2
+  }
 }

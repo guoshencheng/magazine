@@ -3,11 +3,11 @@ import draw from '../lib/draw'
 
 module.exports = (models) => {
   return (context, value) => {
-    Object.keys.forEach(key => {
+    Object.keys(models).forEach(key => {
       if (key == 'image') {
         var model = models[key]
-        draw.image({
-          url: value.cover
+        draw.image(context, {
+          url: value.image,
           left: model.left,
           top: model.top,
           width: model.width,
@@ -15,7 +15,7 @@ module.exports = (models) => {
         })
       } else if (key == 'text') {
         var model = models[key]
-        draw.text({
+        draw.text(context, {
           size: model.size,
           text: value.text,
           font: model.font,
@@ -25,7 +25,7 @@ module.exports = (models) => {
         })
       } else if (key == 'texts') {
         var model = models[key]
-        draw.texts({
+        draw.texts(context, {
           x: model.x,
           y: model.y,
           width: model.width,
@@ -33,6 +33,7 @@ module.exports = (models) => {
           size: model.size,
           font: model.font,
           align: model.align,
+          mode: model.mode,
           linespace: model.linespace,
           wordspace: model.wordspace
         })
