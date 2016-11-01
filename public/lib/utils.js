@@ -1,4 +1,6 @@
 const scale = 3
+const pageHeight = 595
+const pageWidth = 419
 var getLines = (ctx, text, maxWidth, opt) => {
   if (opt.wordspace) {
     return caculateLines(text, maxWidth, opt)
@@ -18,14 +20,14 @@ var separateWord = (ctx, text, maxWidth, opt) => {
       x = opt.wordspace * 2
     } else {
       if (!checkPunctuation(word)) {
-        array.push({x: (x + opt.x) / scale, y: (y + opt.y) / scale, text: word})
+        array.push({x: x / scale, y: y / scale, text: word})
         x += opt.wordspace
       } else {
         while(i + 1 < text.length && checkPunctuation(text[i + 1])) {
           word += text[i + 1]
           i ++
         }
-        array.push({x: (x + opt.x) / scale, y: (y + opt.y) / scale, text: word})
+        array.push({x: x / scale, y: y / scale, text: word})
         var width = ctx.measureText(word).width + (opt.wordspace - opt.size)
         x += width
       }
@@ -35,7 +37,17 @@ var separateWord = (ctx, text, maxWidth, opt) => {
       y += opt.linespace
     }
   }
-  return array
+  var height
+  if (x = 0) {
+    height = y
+  } else {
+    height = y + opt.linespace
+  }
+  height = height / scale
+  return {
+    words: array,
+    height
+  }
 }
 
 var measureLines = (ctx, text, maxWidth) => {
@@ -90,5 +102,7 @@ module.exports = {
   getLines,
   checkPunctuation,
   separateWord,
-  scale
+  scale,
+  pageWidth,
+  pageHeight
 }

@@ -26,13 +26,14 @@ class Create extends React.Component {
     var type
     var data
     if (index == 0) {
-      type = 0
-      data = {}
+      type = 'preface'
+    } else {
+      type = 'content'
     }
     return (
       <div className="pages_row">
-        <Page />
-        <Page />
+        <Page type={type} side={0}/>
+        <Page type={type} side={1}/>
       </div>
     )
   }
@@ -48,7 +49,7 @@ class Create extends React.Component {
         <Control make={this.make}/>
         <div className="common_container">
           <p>封面</p>
-          <Page />
+          <Page type={'cover'}/>
         </div>
         <div className="common_container">
           <p>杂志内容</p>

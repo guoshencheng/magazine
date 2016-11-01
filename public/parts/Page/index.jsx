@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import autoBind from 'react-autobind'
 import utils from '../../lib/utils'
+import templates from '../../templates'
 
 require('./style.scss')
 const a = '我，普普通通80后妈妈，每天忙碌的工作之余最喜欢的就是逛逛菜市场，你可以说我没有品位，可这才是最真实的我。我一直希望自己能游遍天下，欣赏不同的风俗，'
@@ -27,19 +28,40 @@ class Page extends React.Component {
     this.updateCanvas()
   }
 
-  updateCanvas() {
-    var canvas = this.refs.canvas
-    var context = canvas.getContext('2d')
-    context.fillStyle = 'white'
-    context.fillRect(0, 0, canvas.width, canvas.height)
-    var templates = require('../../templates')
-    templates.preface(context, {
-      content: a,
+  renderCover(context) {
+    templates.cover(context, {
       cover: '/images/logo.png',
       title: "造字工房尚雅",
       desc: "方正兰亭纤黑",
       presents: "renyan presents"
     })
+  }
+
+  renderPreface(context) {
+    if (this.props.side == 1) {
+      templates.preface(context, {
+        content: a,
+        cover: '/images/logo.png',
+        title: "造字工房尚雅",
+        desc: "方正兰亭纤黑",
+        presents: "renyan presents"
+      })
+    }
+  }
+
+  updateCanvas() {
+    var canvas = this.refs.canvas
+    var context = canvas.getContext('2d')
+    context.clearRect(0, 0, canvas.width, canvas.height)
+    context.fillStyle = 'white'
+    context.fillRect(0, 0, canvas.width, canvas.height)
+    if (this.props.type == 'cover') {
+      this.renderCover(context)
+    } else if (this.props.type == 'preface') {
+      this.renderPreface(context)
+    } else {
+      this.renderPreface(context)
+    }
   }
 
   render() {

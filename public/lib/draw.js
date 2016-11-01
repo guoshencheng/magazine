@@ -36,6 +36,7 @@ var checkTextOpt = (opt) => {
   opt.y = opt.y || 0
   opt.align = opt.align || 'left'
   opt.width = opt.width || 0
+  opt.mode = opt.mode || 'top'
   opt.linespace = opt.linespace || 17
 }
 
@@ -70,13 +71,18 @@ var drawText = (ctx, opt) => {
 var drawTexts = (ctx, opt) => {
   checkTextOpt(opt)
   ctx.font = opt.style + ' ' + opt.size * utils.scale + "px " + opt.font
-  var words = utils.separateWord(ctx, opt.text, opt.width * utils.scale, {wordspace: utils.scale * opt.wordspace,
+  var {words, height} = utils.separateWord(ctx, opt.text, opt.width * utils.scale, {wordspace: utils.scale * opt.wordspace,
     size: utils.scale * opt.size,
-    linespace: utils.scale * opt.linespace,
-    x: utils.scale * opt.x,
-    y: utils.scale * opt.y})
+    linespace: utils.scale * opt.linespace})
+  var origin = {x: opt.x, y: opt.y}
+  if (opt.mode == 'center') {
+    origin = {
+      x: opt.x,
+      y: opt.y - height / 2
+    }
+  }
   words.forEach((word, index) => {
-    var option = Object.assign({}, opt, word, {wordspace: null})
+    var option = Object.assign({}, opt, word, {wordspace: null}, {x: origin.x + word.x, y: origin.y + word.y})
     drawText(ctx, option)
   })
 }
