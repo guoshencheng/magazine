@@ -23,6 +23,7 @@ class Control extends React.Component {
       <div id="ry_control">
         <input ref="input" className="ry_control_input" placeholder="请输入言集id" type="text"></input>
         <div className="ry_control_btn" onClick={this.onClickMake}>制作</div>
+        <div className="ry_control_btn" onClick={this.props.export}>导出</div>
       </div>
     )
   }

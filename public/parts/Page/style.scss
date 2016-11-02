@@ -1,13 +1,12 @@
 @import "../common.scss";
 
 .ry_page_item {
-  width: 400px;
-  height: 568px;
   margin: 5px;
-  background: #dedede;
-  @include shadow;
+  @include flex;
+  @include flex-direction(column);
   canvas {
-    width: 100%;
-    height: 100%;
+    width: 400px;
+    height: 568px;
+    @include shadow;
   }
 }

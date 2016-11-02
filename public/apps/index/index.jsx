@@ -54,8 +54,9 @@ class Create extends React.Component {
   generateModels(cards) {
     var index = 0
     var datas = []
+    var id = 0
     while(index < cards.length) {
-      var i = index % (modellist.length - 1)
+      var i = id % (modellist.length)
       var model = modellist[i]
       var data
       if (model.count == 1) {
@@ -66,6 +67,7 @@ class Create extends React.Component {
         data = Object.assign({}, model, {card_left: cards[index], card_right: right})
         index += 2
       }
+      id ++
       datas.push(data)
     }
     return datas

@@ -3,21 +3,49 @@ import utils from './utils'
 
 const scale = 2
 
+var fillWidth = (origin, image) => {
+  var sourceHeight = image.width * (origin.height / origin.width)
+  var sourcey = (image.height - sourceHeight) / 2
+  return {
+    width: origin.width,
+    height: origin.height,
+    x: origin.left,
+    y: origin.top,
+    sourcex: 0,
+    sourcey: sourcey,
+    sourceWidth: image.width,
+    sourceHeight: sourceHeight
+  }
+}
+
+var filleHeight = (origin, image) => {
+  var sourceWidth = image.height * (origin.width / origin.height)
+  var sourcex = (image.width - sourceWidth) / 2
+  return {
+    width: origin.width,
+    height: origin.height,
+    x: origin.left,
+    y: origin.top,
+    sourcex: sourcex,
+    sourcey: 0,
+    sourceWidth: sourceWidth,
+    sourceHeight: image.height
+  }
+}
+
+var fill = (origin, image) => {
+  var height = origin.width / image.width * image.height
+  if (height > origin.height) {
+    return fillWidth(origin, image)
+  } else {
+    return filleHeight(origin, image)
+  }
+}
+
 var fit = (origin, image) => {
   var height = origin.width / image.width * image.height
   if (height > origin.height) {
-    var sourceHeight = origin.width * (image.height / image.width)
-    var sourcey = (image.height - sourceHeight) / 2
-    return {
-      width: origin.width,
-      height: origin.height,
-      x: origin.left,
-      y: origin.top,
-      sourcex: 0,
-      sourcey: sourcey,
-      sourceWidth: image.width,
-      sourceHeight: sourceHeight
-    }
+    return fillWidth(origin, image)
   } else {
     var y = origin.top + (origin.height - height) / 2
     return {
@@ -30,13 +58,17 @@ var fit = (origin, image) => {
 }
 
 var changeRect = (origin, image, scale) => {
-  return fit(origin, image)
+  if (scale == 'fill') {
+    return fill(origin, image)
+  } else {
+    return fit(origin, image)
+  }
 }
 
 var drawImage = (ctx, opt) => {
   let img = new Image()
   img.onload = () => {
-    var rect = changeRect(opt, img)
+    var rect = changeRect(opt, img, opt.scale)
     if (rect.sourceWidth) {
       ctx.drawImage(img, rect.sourcex, rect.sourcey, rect.sourceWidth, rect.sourceHeight, rect.x * utils.scale, rect.y * utils.scale, rect.width * utils.scale, rect.height * utils.scale)
     } else {
