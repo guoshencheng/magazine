@@ -2,7 +2,6 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import autoBind from 'react-autobind'
 
-import ReactList from 'react-list'
 import Page from '../../parts/Page/index.jsx'
 import Navigation from '../../parts/Navigation/index.jsx'
 import Control from '../../parts/Control/index.jsx'
@@ -40,13 +39,21 @@ class Create extends React.Component {
      this.renyan.aid = 0
   }
 
-  renderItem(index, key) {
-    var type = index == 0 ? 'preface' : 'content'
-    var data = index == 0 ? null : this.state.rows[index - 1]
+  items() {
+    let items = []
+    items.push(this.item(null))
+    this.state.rows.forEach(row => {
+      items.push(this.item(row))
+    })
+    return items
+  }
+
+  item(row) {
+    var type = row ? 'content' : 'preface'
     return (
       <div className="pages_row">
-        <Page type={type} side={0} data={data}/>
-        <Page type={type} side={1} data={data}/>
+        <Page type={type} side={0} data={row} />
+        <Page type={type} side={1} data={row}/>
       </div>
     )
   }
@@ -94,7 +101,7 @@ class Create extends React.Component {
         </div>
         <div className="common_container">
           <p>杂志内容</p>
-          <ReactList pageSize={3} itemRenderer={this.renderItem} length={this.state.rows.length + 1} />
+          {this.items()}
         </div>
       </div>
     )
