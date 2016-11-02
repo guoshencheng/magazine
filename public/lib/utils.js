@@ -70,7 +70,8 @@ var measureLines = (ctx, text, maxWidth) => {
 
 var checkPunctuation = (str) => {
   var punctuation = /[,.?。\-]/
-  return punctuation.test(str) || !isNaN(str)
+  var english = /^[A-Za-z0-9]*$/
+  return punctuation.test(str) || !isNaN(str) || english.test(str)
 }
 
 var checkReturn = (str) => {

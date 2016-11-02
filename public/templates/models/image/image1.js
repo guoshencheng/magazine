@@ -5,7 +5,7 @@
 // height: model.height,
 //
 
-import utils from '../../lib/utils'
+import utils from '../../../lib/utils'
 
 module.exports = {
   image: {

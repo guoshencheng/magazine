@@ -9,13 +9,13 @@
 // linespace: model.linespace,
 // wordspace: model.wordspace
 
-import utils from '../../lib/utils'
+import utils from '../../../lib/utils'
 
 module.exports = {
   texts: {
     x: 95,
     y: 297.5,
-    width: 180,
+    width: 230,
     size: 8,
     font: 'FZLanTingHei-EL-GBK',
     align: 'left',

@@ -5,12 +5,27 @@ const scale = 2
 
 var fit = (origin, image) => {
   var height = origin.width / image.width * image.height
-  var y = height > origin.height ? origin.top - (height - origin.height) : origin.top + (origin.height - height) / 2
-  return {
-    width: origin.width,
-    height: height,
-    x: origin.left,
-    y: y
+  if (height > origin.height) {
+    var sourceHeight = origin.width * (image.height / image.width)
+    var sourcey = (image.height - sourceHeight) / 2
+    return {
+      width: origin.width,
+      height: origin.height,
+      x: origin.left,
+      y: origin.top,
+      sourcex: 0,
+      sourcey: sourcey,
+      sourceWidth: image.width,
+      sourceHeight: sourceHeight
+    }
+  } else {
+    var y = origin.top + (origin.height - height) / 2
+    return {
+      width: origin.width,
+      height: height,
+      x: origin.left,
+      y: y
+    }
   }
 }
 
@@ -22,7 +37,11 @@ var drawImage = (ctx, opt) => {
   let img = new Image()
   img.onload = () => {
     var rect = changeRect(opt, img)
-    ctx.drawImage(img, rect.x * utils.scale, rect.y * utils.scale, rect.width * utils.scale, rect.height * utils.scale)
+    if (rect.sourceWidth) {
+      ctx.drawImage(img, rect.sourcex, rect.sourcey, rect.sourceWidth, rect.sourceHeight, rect.x * utils.scale, rect.y * utils.scale, rect.width * utils.scale, rect.height * utils.scale)
+    } else {
+      ctx.drawImage(img, rect.x * utils.scale, rect.y * utils.scale, rect.width * utils.scale, rect.height * utils.scale)
+    }
   }
   img.src = opt.url
 }
@@ -79,6 +98,11 @@ var drawTexts = (ctx, opt) => {
     origin = {
       x: opt.x,
       y: opt.y - height / 2
+    }
+  } else if (opt.mode == 'bottom') {
+    origin = {
+      x: opt.x,
+      y: opt.y - height
     }
   }
   words.forEach((word, index) => {

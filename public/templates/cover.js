@@ -6,7 +6,7 @@ const cover_height = 453
 const title_y = (cover_top + cover_height + 8.6)
 const title_x = 403.5
 const title_align = "right"
-const title_font = "MFShangYa_Noncommercial-Regular"
+const title_font = "HYRunYuan"
 const title_size = 36
 
 const desc_y = (title_y + title_size + 8.6)

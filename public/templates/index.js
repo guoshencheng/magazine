@@ -1,5 +1,6 @@
 module.exports = {
   cover: require('./cover'),
   preface: require('./preface'),
-  content: require('./content')
+  content: require('./content'),
+  modellist: require('./modellist')
 }

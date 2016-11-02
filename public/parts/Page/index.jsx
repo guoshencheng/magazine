@@ -38,6 +38,10 @@ class Page extends React.Component {
     })
   }
 
+  componentDidUpdate() {
+    this.updateCanvas()
+  }
+
   renderPreface(context) {
     if (this.props.side == 1) {
       templates.preface(context, {
@@ -52,12 +56,16 @@ class Page extends React.Component {
 
   renderContent(context) {
     if (this.props.side == 1) {
-      templates.content(models.singleText)(context, {
-        texts: a
+      templates.content(this.props.data.left)(context, {
+        texts: this.props.data.card_left.text,
+        text: this.props.data.card_left.text,
+        image: this.props.data.card_left.pictureBig
       })
     } else {
-      templates.content(models.bigSingleImage)(context, {
-        image: '/images/logo.png'
+      templates.content(this.props.data.right)(context, {
+        texts: this.props.data.card_right.text,
+        text: this.props.data.card_right.text,
+        image: this.props.data.card_right.pictureBig
       })
     }
   }
