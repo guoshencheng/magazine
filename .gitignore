@@ -53,18 +53,6 @@ node_modules/
 
 public/bower_components
 
-public/materials/
-
-public/dist/
-
-public/download/
-
-public/libs/API.js
-
-public/js/API.js
-
-public/basic
-
 !bower.json
 !package.json
 
