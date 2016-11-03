@@ -103,7 +103,9 @@ class Create extends React.Component {
 
   make(aid) {
     fetchContentByAid(aid).then(value => {
-      var rows = this.generateModels(value.data.cards)
+      var rows = this.generateModels(value.data.cards.filter( card => {
+        return card.template != 1
+      }))
       this.setState({rows})
     }).catch(reason => {
       console.log(reason)

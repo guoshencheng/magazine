@@ -7,19 +7,19 @@ const title_y = (cover_top + cover_height + 8.6)
 const title_x = 403.5
 const title_align = "right"
 const title_font = "HYRunYuan"
-const title_size = 36
+const title_size = 27
 
 const desc_y = (title_y + title_size + 8.6)
 const desc_x = 403.5
 const desc_align = "right"
 const desc_font = "FZLanTingHei-EL-GBK"
-const desc_size = 13
+const desc_size = 10
 
 const present_y = 569.5
 const present_x = 403.5
 const present_align = "right"
 const present_font = "helvetica-lightOblique"
-const present_size = 11
+const present_size = 8
 
 import draw from '../lib/draw'
 
