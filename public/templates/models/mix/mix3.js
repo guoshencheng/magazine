@@ -8,7 +8,8 @@ module.exports = {
     left: (utils.pageWidth - image_width) / 2,
     top: image_top,
     width: image_width,
-    height: image_height
+    height: image_height,
+    scale: 'fill'
   },
   texts: {
     x: 138,

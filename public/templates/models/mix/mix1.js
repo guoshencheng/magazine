@@ -7,7 +7,8 @@ module.exports = {
     left: 34,
     top: image_top,
     width: utils.pageWidth - 34 * 2,
-    height: image_height
+    height: image_height,
+    scale: 'fill'
   },
   texts: {
     x: 95,

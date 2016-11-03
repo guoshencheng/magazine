@@ -57,9 +57,9 @@ class Create extends React.Component {
 
   items() {
     let items = []
-    items.push(<RowItem ref={prefix + "0"}/>)
+    items.push(<RowItem ref={prefix + "1"}/>)
     this.state.rows.forEach((row, index) => {
-      var ref = prefix + (index + 1)
+      var ref = prefix + (index + 2)
       items.push(<RowItem row={row} ref={ref} />)
     })
     return items
@@ -98,16 +98,27 @@ class Create extends React.Component {
   }
 
   operation(doc, index) {
-    var rowitem = this.refs[prefix + index]
-    var leftCanvas = rowitem.refs.left.refs.canvas
-    var rightCanvas = rowitem.refs.right.refs.canvas
-    return (cb) => {
-      var left = leftCanvas.toDataURL("image/jpeg", 0.5)
-      var right = rightCanvas.toDataURL("image/jpeg", 0.5)
-      doc.addImage(left, 0, 0, 148.5, 210)
-      doc.addImage(right, 148.5, 0, 148.5, 210)
-      doc.addPage()
-      cb(null, prefix + index)
+    if (index != 0) {
+      var rowitem = this.refs[prefix + index]
+      var leftCanvas = rowitem.refs.left.refs.canvas
+      var rightCanvas = rowitem.refs.right.refs.canvas
+      return (cb) => {
+        var left = leftCanvas.toDataURL("image/jpeg", 0.5)
+        var right = rightCanvas.toDataURL("image/jpeg", 0.5)
+        doc.addImage(left, 0, 0, 148.5, 210)
+        doc.addImage(right, 148.5, 0, 148.5, 210)
+        doc.addPage()
+        cb(null, prefix + index)
+      }
+    } else {
+      var page = this.refs[prefix + index]
+      var canvas = page.refs.canvas
+      return (cb) => {
+        var left = canvas.toDataURL("image/jpeg", 0.5)
+        doc.addImage(left, 0, 0, 148.5, 210)
+        doc.addPage()
+        cb(null, prefix + index)
+      }
     }
   }
 
@@ -115,10 +126,9 @@ class Create extends React.Component {
     var doc = new jsPDF({
       orientation: 'landscape',
     })
-    var ops = [this.operation(doc, 0), ...this.state.rows.map((row, index)=> {
+    var ops = [this.operation(doc, 0), this.operation(doc, 1), ...this.state.rows.map((row, index)=> {
       return this.operation(doc, index + 1)
     })]
-    console.log(ops)
     series(ops, (err, results) => {
       console.log(err, results)
       doc.save('download')
@@ -132,7 +142,7 @@ class Create extends React.Component {
         <Control make={this.make} export={this.onClickExport}/>
         <div className="common_container">
           <p>封面</p>
-          <Page type={'cover'}/>
+          <Page ref={prefix + "0"} type={'cover'}/>
         </div>
         <div className="common_container">
           <p>杂志内容</p>
