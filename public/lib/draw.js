@@ -67,6 +67,7 @@ var changeRect = (origin, image, scale) => {
 
 var drawImage = (ctx, opt) => {
   let img = new Image()
+  img.crossOrigin="anonymous"
   img.onload = () => {
     var rect = changeRect(opt, img, opt.scale)
     if (rect.sourceWidth) {

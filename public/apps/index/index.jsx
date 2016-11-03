@@ -6,9 +6,9 @@ import Page from '../../parts/Page/index.jsx'
 import Navigation from '../../parts/Navigation/index.jsx'
 import Control from '../../parts/Control/index.jsx'
 import {modellist} from '../../templates'
-
+import series from 'async/series'
 import axios from 'axios'
-
+const prefix = 'row_item_'
 require('./style.scss')
 
 const page = {
@@ -27,6 +27,22 @@ var fetchContentByAid = (aid) => {
   })
 }
 
+class RowItem extends React.Component {
+  constructor(props){
+     super(props);
+     autoBind(this);
+  }
+  render() {
+    var type = this.props.row ? 'content' : 'preface'
+    return (
+      <div className="pages_row">
+        <Page ref="left" type={type} side={0} data={this.props.row} />
+        <Page ref="right" type={type} side={1} data={this.props.row}/>
+      </div>
+    )
+  }
+}
+
 class Create extends React.Component {
   constructor(props){
      super(props);
@@ -41,21 +57,12 @@ class Create extends React.Component {
 
   items() {
     let items = []
-    items.push(this.item(null))
-    this.state.rows.forEach(row => {
-      items.push(this.item(row))
+    items.push(<RowItem ref={prefix + "0"}/>)
+    this.state.rows.forEach((row, index) => {
+      var ref = prefix + (index + 1)
+      items.push(<RowItem row={row} ref={ref} />)
     })
     return items
-  }
-
-  item(row) {
-    var type = row ? 'content' : 'preface'
-    return (
-      <div className="pages_row">
-        <Page type={type} side={0} data={row} />
-        <Page type={type} side={1} data={row}/>
-      </div>
-    )
   }
 
   generateModels(cards) {
@@ -90,11 +97,39 @@ class Create extends React.Component {
     })
   }
 
+  operation(doc, index) {
+    var rowitem = this.refs[prefix + index]
+    var leftCanvas = rowitem.refs.left.refs.canvas
+    var rightCanvas = rowitem.refs.right.refs.canvas
+    return (cb) => {
+      var left = leftCanvas.toDataURL()
+      var right = rightCanvas.toDataURL()
+      doc.addImage(left, 0, 0, 148.5, 210)
+      doc.addImage(right, 148.5, 0, 148.5, 210)
+      doc.addPage()
+      cb(null, prefix + index)
+    }
+  }
+
+  onClickExport() {
+    var doc = new jsPDF({
+      orientation: 'landscape',
+    })
+    var ops = [this.operation(doc, 0), ...this.state.rows.map((row, index)=> {
+      return this.operation(doc, index + 1)
+    })]
+    console.log(ops)
+    series(ops, (err, results) => {
+      console.log(err, results)
+      doc.save('download')
+    })
+  }
+
   render() {
     return (
       <div>
         <Navigation />
-        <Control make={this.make}/>
+        <Control make={this.make} export={this.onClickExport}/>
         <div className="common_container">
           <p>封面</p>
           <Page type={'cover'}/>

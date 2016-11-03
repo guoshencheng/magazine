@@ -1,4 +1,4 @@
-const scale = 3
+const scale = 1.1
 const pageHeight = 595
 const pageWidth = 419
 
