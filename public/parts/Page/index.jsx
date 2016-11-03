@@ -43,13 +43,10 @@ class Page extends React.Component {
   }
 
   renderPreface(context) {
+    console.log(this.props)
     if (this.props.side == 1) {
       templates.preface(context, {
-        content: a,
-        cover: '/images/logo.png',
-        title: "造字工房尚雅",
-        desc: "方正兰亭纤黑",
-        presents: "renyan presents"
+        content: this.props.data,
       })
     }
   }

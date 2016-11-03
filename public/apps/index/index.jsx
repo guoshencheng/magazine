@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import autoBind from 'react-autobind'
 
+import Preface from '../../parts/Preface/index.jsx'
 import Page from '../../parts/Page/index.jsx'
 import Navigation from '../../parts/Navigation/index.jsx'
 import Control from '../../parts/Control/index.jsx'
@@ -48,11 +49,10 @@ class RowItem extends React.Component {
      autoBind(this);
   }
   render() {
-    var type = this.props.row ? 'content' : 'preface'
     return (
       <div className="pages_row">
-        <Page ref="left" type={type} side={0} data={this.props.row} />
-        <Page ref="right" type={type} side={1} data={this.props.row}/>
+        <Page ref="left" type={this.props.type} side={0} data={this.props.row} />
+        <Page ref="right" type={this.props.type} side={1} data={this.props.row}/>
       </div>
     )
   }
@@ -65,16 +65,16 @@ class Create extends React.Component {
      this.state = {
        rows: [],
        cards: [],
-       album: default_album
+       album: default_album,
+       preface: ""
      }
   }
 
   items() {
     let items = []
-    items.push(<RowItem ref={prefix + "1"}/>)
     this.state.rows.forEach((row, index) => {
       var ref = prefix + (index + 2)
-      items.push(<RowItem row={row} ref={ref} />)
+      items.push(<RowItem type={"content"} row={row} ref={ref} />)
     })
     return items
   }
@@ -158,6 +158,11 @@ class Create extends React.Component {
     })
   }
 
+  onClickUpdateValue(value) {
+    let preface = value
+    this.setState({preface})
+  }
+
   render() {
     return (
       <div>
@@ -169,6 +174,8 @@ class Create extends React.Component {
         </div>
         <div className="common_container">
           <p>杂志内容</p>
+          <Preface updateValue={this.onClickUpdateValue}/>
+          <RowItem row={this.state.preface} type={"preface"} ref={prefix + "1"}/>
           {this.items()}
         </div>
       </div>
