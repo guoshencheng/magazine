@@ -102,8 +102,8 @@ class Create extends React.Component {
     var leftCanvas = rowitem.refs.left.refs.canvas
     var rightCanvas = rowitem.refs.right.refs.canvas
     return (cb) => {
-      var left = leftCanvas.toDataURL()
-      var right = rightCanvas.toDataURL()
+      var left = leftCanvas.toDataURL("image/jpeg", 0.5)
+      var right = rightCanvas.toDataURL("image/jpeg", 0.5)
       doc.addImage(left, 0, 0, 148.5, 210)
       doc.addImage(right, 148.5, 0, 148.5, 210)
       doc.addPage()
