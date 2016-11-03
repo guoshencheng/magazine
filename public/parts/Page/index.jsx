@@ -31,9 +31,9 @@ class Page extends React.Component {
 
   renderCover(context) {
     templates.cover(context, {
-      cover: '/images/logo.png',
-      title: "造字工房尚雅",
-      desc: "方正兰亭纤黑",
+      cover: this.props.data.cover,
+      title: this.props.data.name,
+      desc: this.props.data.uname,
       presents: "renyan presents"
     })
   }

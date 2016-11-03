@@ -17,12 +17,27 @@ const page = {
 }
 
 const urls = {
-  FETCH_BY_AID: 'http://operation.renyan.cn/rest/noauth/card/select_by_album_id'
+  FETCH_BY_AID: 'http://operation.renyan.cn/rest/noauth/card/select_by_album_id',
+  FETCH_ALBUM_BY_AID: 'http://operation.renyan.cn/rest/noauth/album/select_by_album_id'
+}
+
+const default_album = {
+  aid: 0,
+  name: "",
+  uname: "",
+  cover: "",
 }
 
 var fetchContentByAid = (aid) => {
   var params = Object.assign(page, {aid: aid})
   return axios.get(urls.FETCH_BY_AID, {
+    params: params
+  })
+}
+
+var fetchAlbumByAid = (aid) => {
+  var params = {aid: aid}
+  return axios.get(urls.FETCH_ALBUM_BY_AID, {
     params: params
   })
 }
@@ -49,10 +64,9 @@ class Create extends React.Component {
      autoBind(this);
      this.state = {
        rows: [],
-       cards: []
+       cards: [],
+       album: default_album
      }
-     this.renyan = this.renyan || {}
-     this.renyan.aid = 0
   }
 
   items() {
@@ -88,10 +102,19 @@ class Create extends React.Component {
   }
 
   make(aid) {
-    this.renyan.aid = aid
     fetchContentByAid(aid).then(value => {
       var rows = this.generateModels(value.data.cards)
       this.setState({rows})
+    }).catch(reason => {
+      console.log(reason)
+    })
+    fetchAlbumByAid(aid).then(value => {
+      if (value.data.errorCode != 0) {
+        alert("查询言集信息失败")
+      } else {
+        var album = value.data.albums[0]
+        this.setState({album})
+      }
     }).catch(reason => {
       console.log(reason)
     })
@@ -142,7 +165,7 @@ class Create extends React.Component {
         <Control make={this.make} export={this.onClickExport}/>
         <div className="common_container">
           <p>封面</p>
-          <Page ref={prefix + "0"} type={'cover'}/>
+          <Page data={this.state.album} ref={prefix + "0"} type={'cover'}/>
         </div>
         <div className="common_container">
           <p>杂志内容</p>
