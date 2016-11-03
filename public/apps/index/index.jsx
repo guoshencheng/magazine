@@ -31,8 +31,7 @@ const default_album = {
 
 var fetchContentByAid = (aid) => {
   var params = Object.assign(page, {aid: aid})
-  return axios.get(urls.FETCH_BY_AID, {
-    params: params
+  return axios.get(urls.FETCH_BY_AID, { params: params
   })
 }
 
@@ -106,6 +105,7 @@ class Create extends React.Component {
       var rows = this.generateModels(value.data.cards.filter( card => {
         return card.template != 1
       }))
+      console.log(rows)
       this.setState({rows})
     }).catch(reason => {
       console.log(reason)

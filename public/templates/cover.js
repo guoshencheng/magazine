@@ -30,7 +30,7 @@ module.exports = (ctx, option) => {
     font: title_font,
     x: title_x,
     y: title_y,
-    align: title_align
+    align: title_align,
   })
   draw.text(ctx, {
     size: desc_size,

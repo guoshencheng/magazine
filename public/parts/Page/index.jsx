@@ -39,18 +39,22 @@ class Page extends React.Component {
   }
 
   renderContent(context) {
-    if (this.props.side == 1) {
-      templates.content(this.props.data.left)(context, {
-        texts: this.props.data.card_left.text,
-        text: this.props.data.card_left.text,
-        image: this.props.data.card_left.pictureBig
-      })
+    if (this.props.side == 0) {
+      if (this.props.data.card_left) {
+        templates.content(this.props.data.left)(context, {
+          texts: this.props.data.card_left.text,
+          text: this.props.data.card_left.text,
+          image: this.props.data.card_left.pictureBig
+        })
+      }
     } else {
-      templates.content(this.props.data.right)(context, {
-        texts: this.props.data.card_right.text,
-        text: this.props.data.card_right.text,
-        image: this.props.data.card_right.pictureBig
-      })
+      if (this.props.data.card_right) {
+        templates.content(this.props.data.right)(context, {
+          texts: this.props.data.card_right.text,
+          text: this.props.data.card_right.text,
+          image: this.props.data.card_right.pictureBig
+        })
+      }
     }
     templates.pagecorner(context, {
       side: this.props.side,

@@ -91,6 +91,7 @@ var checkTextOpt = (opt) => {
   opt.mode = opt.mode || 'top'
   opt.linespace = opt.linespace || 17
   opt.cancalstart = opt.cancalstart || false
+  opt.weight = opt.weight || ""
 }
 
 var drawCustomText = (ctx, opt) => {
@@ -113,7 +114,7 @@ var drawCustomText = (ctx, opt) => {
 
 var drawText = (ctx, opt) => {
   checkTextOpt(opt)
-  ctx.font = opt.style + ' ' + opt.size * utils.scale + "px " + opt.font
+  ctx.font = opt.weight + ' ' + opt.style + ' ' + opt.size * utils.scale + "px " + opt.font
   ctx.textAlign = opt.align
   ctx.textBaseline = 'top'
   ctx.fillStyle = "#656464"
@@ -124,6 +125,7 @@ var drawText = (ctx, opt) => {
 var drawTexts = (ctx, opt) => {
   checkTextOpt(opt)
   ctx.font = opt.style + ' ' + opt.size * utils.scale + "px " + opt.font
+  console.log(opt.text)
   var {words, height} = utils.separateWord(ctx, opt.text, opt.width * utils.scale, {wordspace: utils.scale * opt.wordspace,
     size: utils.scale * opt.size,
     linespace: utils.scale * opt.linespace, cancalstart: opt.cancalstart})
