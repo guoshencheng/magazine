@@ -51,8 +51,8 @@ class RowItem extends React.Component {
   render() {
     return (
       <div className="pages_row">
-        <Page ref="left" type={this.props.type} side={0} data={this.props.row} />
-        <Page ref="right" type={this.props.type} side={1} data={this.props.row}/>
+        <Page ref="left" album={this.props.album}  number={this.props.number * 2 + 1} type={this.props.type} side={0} data={this.props.row} />
+        <Page ref="right" album={this.props.album}  number={this.props.number * 2 + 2} type={this.props.type} side={1} data={this.props.row}/>
       </div>
     )
   }
@@ -74,7 +74,7 @@ class Create extends React.Component {
     let items = []
     this.state.rows.forEach((row, index) => {
       var ref = prefix + (index + 2)
-      items.push(<RowItem type={"content"} row={row} ref={ref} />)
+      items.push(<RowItem number={index} album={this.state.album.name}type={"content"} row={row} ref={ref} />)
     })
     return items
   }
@@ -150,7 +150,7 @@ class Create extends React.Component {
       orientation: 'landscape',
     })
     var ops = [this.operation(doc, 0), this.operation(doc, 1), ...this.state.rows.map((row, index)=> {
-      return this.operation(doc, index + 1)
+      return this.operation(doc, index + 2)
     })]
     series(ops, (err, results) => {
       console.log(err, results)

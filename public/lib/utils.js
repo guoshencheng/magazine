@@ -12,13 +12,13 @@ var getLines = (ctx, text, maxWidth, opt) => {
 
 var separateWord = (ctx, text, maxWidth, opt) => {
   var array = []
-  let x = opt.wordspace * 2
+  let x = !opt.cancalstart ? opt.wordspace * 2 : 0
   let y = 0
   for (var i = 0;i < text.length; i++) {
     var word = text[i]
     if (checkReturn(word)) {
       y += opt.linespace
-      x = opt.wordspace * 2
+      x = !opt.cancalstart ? opt.wordspace * 2 : 0
     } else {
       if (!checkPunctuation(word)) {
         array.push({x: x / scale, y: y / scale, text: word})
