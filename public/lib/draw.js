@@ -125,7 +125,6 @@ var drawText = (ctx, opt) => {
 var drawTexts = (ctx, opt) => {
   checkTextOpt(opt)
   ctx.font = opt.style + ' ' + opt.size * utils.scale + "px " + opt.font
-  console.log(opt.text)
   var {words, height} = utils.separateWord(ctx, opt.text, opt.width * utils.scale, {wordspace: utils.scale * opt.wordspace,
     size: utils.scale * opt.size,
     linespace: utils.scale * opt.linespace, cancalstart: opt.cancalstart})
